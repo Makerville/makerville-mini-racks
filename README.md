@@ -4,6 +4,13 @@ A library to generate 3D printable trays and plates for mini racks - with <3 fro
 
 ![example-blank](./examples/blank.jpg)
 
+
+## Installation
+
+- Install [BOSL2](https://github.com/BelfrySCAD/BOSL2/wiki#installation)
+- Install [JL_SCAD](https://github.com/lijon/jl_scad?tab=readme-ov-file#installation)
+- Clone this repository to your OpenSCAD libraries folder
+
 ## Contributing
 
 - use [scadformatter](https://github.com/hugheaves/scadformat/) to format the files before opening a pull request
