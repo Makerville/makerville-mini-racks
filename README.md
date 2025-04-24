@@ -1,6 +1,6 @@
 # Makerville Mini Racks
 
-A library to generate 3D printable trays for mini racks - with <3 from the [Makerville community](https://makerville.io/).
+A library to generate 3D printable trays and plates for mini racks - with <3 from the [Makerville community](https://makerville.io/).
 
 ![example-blank](./examples/blank.png)
 
