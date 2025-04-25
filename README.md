@@ -4,6 +4,7 @@ A library to generate 3D printable trays and plates for mini racks - with <3 fro
 
 ![example-blank](./examples/blank.jpg)
 
+![IEC320 w/ a rocker](./examples/iec320_c14_rocker.jpg)
 
 ## Installation
 
