@@ -46,3 +46,43 @@ module 6_olimex_serial(num = 2) {
   }
   ;
 }
+
+module 6_iec320_c14(acdc = false,lrs505 = false) {
+  difference() {
+    difference() {
+      cube([6inch, 1U, 3]);
+      for(x = [7, 6inch - 7])
+        for(y = [10, 1U - 10])
+          translate([x, y, -1])
+            cylinder(h = 5, d = 4.4, $fn = 30);
+    }
+    ;
+
+  // cutouts for IEC320 C14
+  translate([6inch/2+20, 1U / 2, 0])
+      cube([27.3, 30, 7], center = true);
+  // mounting holes for IEC320 C14
+  translate([6inch/2+2, 1U / 2, 0])
+      cylinder(d=3.3, h=10, center=true,$fn=30);
+  translate([6inch/2+2+36, 1U / 2, 0])
+      cylinder(d=3.3, h=10, center=true,$fn=30);
+
+  // cutout for rocker switch
+  translate([6inch/2+55, 1U / 2, 0])
+      cube([13, 20, 7], center = true);
+  }
+  ;
+  // optional fun text
+  if (acdc) {
+    translate([ 10, 1U / 2-10, 3])
+      color("red")
+        linear_extrude(1)
+          scale([0.5, 0.5, 1]) import("./acdc.svg");
+  }
+
+  // LRS-50-5 mount
+  if(lrs505) {
+    width = 110;
+    translate([(6inch-width)/2,0,-100])cube([width, 3, 100]);
+  }
+}
