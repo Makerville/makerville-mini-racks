@@ -22,6 +22,14 @@ module 6_blank(U = 1, text = "") {
 }
 
 module 6_olimex_serial(num = 2) {
+  for(i = [0:num - 1]) {
+    translate([i * (6inch / num) + (6inch / num) / 2 - 5, 1U / 2 - 22.225, 0])
+      translate([5, 0, 20])
+        rotate([-90, 0, 0])
+          box_make(halves = [BOT])
+            box_shell_base_lid([8.5, 34, 12]);
+  }
+
   difference() {
     difference() {
       cube([6inch, 1U, 3]);
@@ -37,12 +45,4 @@ module 6_olimex_serial(num = 2) {
           cylinder(h = 5, d = 4.4, $fn = 30);
   }
   ;
-
-  for(i = [0:num - 1]) {
-    translate([i * (6inch / num) + (6inch / num) / 2 - 5, 1U / 2 - 22.225, 0])
-      translate([5, 0, 15])
-        rotate([-90, 0, 0])
-          box_make(halves = [BOT])
-            box_shell_base_lid([10, 30, 10]);
-  }
 }
