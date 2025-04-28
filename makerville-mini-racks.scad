@@ -22,8 +22,9 @@ module 6_blank(U = 1, text = "", text_size = 3) {
 }
 
 module 6_olimex_serial(num = 2) {
+  6inch_shrink = 6inch - 20;
   for(i = [0:num - 1]) {
-    translate([i * (6inch / num) + (6inch / num) / 2 - 5, 1U / 2 - 22.225, 0])
+    translate([i * (6inch_shrink / num) + (6inch_shrink / num) / 2 - 5 + 10, 1U / 2 - 22.225, 0])
       translate([5, 0, 20])
         rotate([-90, 0, 0])
           box_make(halves = [BOT])
@@ -34,7 +35,7 @@ module 6_olimex_serial(num = 2) {
     difference() {
       cube([6inch, 1U, 3]);
       for(i = [0:num - 1]) {
-        translate([i * (6inch / num) + (6inch / num) / 2, 1U / 2, 0])
+        translate([i * (6inch_shrink / num) + (6inch_shrink / num) / 2 + 10, 1U / 2, 0])
           cube([8, 25, 7], center = true);
       }
     }
@@ -47,7 +48,7 @@ module 6_olimex_serial(num = 2) {
   ;
 }
 
-module 6_iec320_c14(acdc = false,lrs505 = false) {
+module 6_iec320_c14(acdc = false, lrs505 = false) {
   difference() {
     difference() {
       cube([6inch, 1U, 3]);
@@ -58,31 +59,33 @@ module 6_iec320_c14(acdc = false,lrs505 = false) {
     }
     ;
 
-  // cutouts for IEC320 C14
-  translate([6inch/2+10, 1U / 2, 0])
+    // cutouts for IEC320 C14
+    translate([6inch / 2 + 10, 1U / 2, 0])
       cube([27.3, 30, 7], center = true);
-  // mounting holes for IEC320 C14
-  translate([6inch/2-9, 1U / 2, 0])
-      cylinder(d=3.3, h=10, center=true,$fn=30);
-  translate([6inch/2+29, 1U / 2, 0])
-      cylinder(d=3.3, h=10, center=true,$fn=30);
+    // mounting holes for IEC320 C14
+    translate([6inch / 2 - 9, 1U / 2, 0])
+      cylinder(d = 3.3, h = 10, center = true, $fn = 30);
+    translate([6inch / 2 + 29, 1U / 2, 0])
+      cylinder(d = 3.3, h = 10, center = true, $fn = 30);
 
-  // cutout for rocker switch
-  translate([6inch/2+45, 1U / 2, 0])
+    // cutout for rocker switch
+    translate([6inch / 2 + 45, 1U / 2, 0])
       cube([13, 20, 7], center = true);
   }
   ;
   // optional fun text
   if (acdc) {
-    translate([ 15, 1U / 2-6, 3])
+    translate([15, 1U / 2 - 6, 3])
       color("red")
         linear_extrude(1)
-          scale([0.3, 0.3, 1]) import("./acdc.svg");
+          scale([0.3, 0.3, 1])
+            import("./acdc.svg");
   }
 
   // LRS-50-5 mount
-  if(lrs505) {
+  if (lrs505) {
     width = 110;
-    translate([(6inch-width)/2,0,-100])cube([width, 3, 100]);
+    translate([(6inch - width) / 2, 0, -100])
+      cube([width, 3, 100]);
   }
 }
