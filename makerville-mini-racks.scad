@@ -89,3 +89,18 @@ module 6_iec320_c14(acdc = false, lrs505 = false) {
       cube([width, 3, 100]);
   }
 }
+
+module 6_blank_hole(U = 1, d = 4.4, x = 6inch / 2, y = 1U / 2) {
+  difference() {
+    difference() {
+      cube([6inch, U * 1U, 3]);
+
+      for(x = [7, 6inch - 7])
+        for(y = [10, U * 1U - 10])
+          translate([x, y, -1])
+            cylinder(h = 5, d = 4.4, $fn = 30);
+    }
+    translate([x, y, 0])
+      cylinder(h = 5, d = d, $fn = 30);
+  }
+}
