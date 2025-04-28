@@ -63,9 +63,9 @@ module 6_iec320_c14(acdc = false, lrs505 = false) {
     translate([6inch / 2 + 10, 1U / 2, 0])
       cube([27.3, 30, 7], center = true);
     // mounting holes for IEC320 C14
-    translate([6inch / 2 - 9, 1U / 2, 0])
+    translate([6inch / 2 - 8.5, 1U / 2, 0])
       cylinder(d = 3.3, h = 10, center = true, $fn = 30);
-    translate([6inch / 2 + 29, 1U / 2, 0])
+    translate([6inch / 2 + 28.5, 1U / 2, 0])
       cylinder(d = 3.3, h = 10, center = true, $fn = 30);
 
     // cutout for rocker switch
