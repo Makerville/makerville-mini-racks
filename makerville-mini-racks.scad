@@ -5,12 +5,12 @@ include <jl_scad/parts.scad>
 1U = 44.45;
 6inch = 152.4;
 
-module 6_blank(U = 1, text = "") {
+module 6_blank(U = 1, text = "", text_size = 3) {
 
   translate([6inch / 2, U * 1U / 2, 3])
     color("red")
       linear_extrude(1)
-        text(text, size = 1U / 3, halign = "center", valign = "center", font = "Fira Code:style=Bold");
+        text(text, size = 1U / text_size, halign = "center", valign = "center", font = "Fira Code:style=Bold");
 
   difference() {
     cube([6inch, U * 1U, 3]);
@@ -59,25 +59,25 @@ module 6_iec320_c14(acdc = false,lrs505 = false) {
     ;
 
   // cutouts for IEC320 C14
-  translate([6inch/2+20, 1U / 2, 0])
+  translate([6inch/2+10, 1U / 2, 0])
       cube([27.3, 30, 7], center = true);
   // mounting holes for IEC320 C14
-  translate([6inch/2+2, 1U / 2, 0])
+  translate([6inch/2-9, 1U / 2, 0])
       cylinder(d=3.3, h=10, center=true,$fn=30);
-  translate([6inch/2+2+36, 1U / 2, 0])
+  translate([6inch/2+29, 1U / 2, 0])
       cylinder(d=3.3, h=10, center=true,$fn=30);
 
   // cutout for rocker switch
-  translate([6inch/2+55, 1U / 2, 0])
+  translate([6inch/2+45, 1U / 2, 0])
       cube([13, 20, 7], center = true);
   }
   ;
   // optional fun text
   if (acdc) {
-    translate([ 10, 1U / 2-10, 3])
+    translate([ 15, 1U / 2-6, 3])
       color("red")
         linear_extrude(1)
-          scale([0.5, 0.5, 1]) import("./acdc.svg");
+          scale([0.3, 0.3, 1]) import("./acdc.svg");
   }
 
   // LRS-50-5 mount
