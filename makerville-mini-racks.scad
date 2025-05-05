@@ -104,3 +104,28 @@ module 6_blank_hole(U = 1, d = 4.4, x = 6inch / 2, y = 1U / 2) {
       cylinder(h = 5, d = d, $fn = 30);
   }
 }
+
+module 6_120mm_fan_3u() {
+  difference() {
+    difference() {
+      difference() {
+        cube([6inch, 3 * 1U, 3]);
+        for(x = [7, 6inch - 7])
+          for(y = [10, 3 * 1U - 10])
+            translate([x, y, -1])
+              cylinder(h = 5, d = 4.4, $fn = 30);
+      }
+      ;
+      // Standard 120mm fan has mounting holes at 105mm spacing
+      for(x = [6inch / 2 - 52.5, 6inch / 2 + 52.5])
+        for(y = [1.5 * 1U - 52.5, 1.5 * 1U + 52.5])
+          translate([x, y, -1])
+            cylinder(h = 5, d = 4.4, $fn = 30);
+    }
+    ;
+    // Create circular vent pattern for 120mm fan
+    translate([6inch / 2, 1.5 * 1U, -1])
+      cylinder(h = 5, d = 110, $fn = 100);
+  }
+  ;
+}
