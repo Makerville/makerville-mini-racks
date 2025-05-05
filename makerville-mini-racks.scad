@@ -3,7 +3,7 @@ include <jl_scad/parts.scad>
 
 
 1U = 44.45;
-6inch = 152.4;
+6inch = 156;
 
 module 6_blank(U = 1, text = "", text_size = 3) {
 
