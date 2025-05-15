@@ -63,9 +63,9 @@ module 6_iec320_c14(acdc = false, lrs505 = false) {
     translate([6inch / 2 + 10, 1U / 2, 0])
       cube([27.3, 30, 7], center = true);
     // mounting holes for IEC320 C14
-    translate([6inch / 2 - 8.5, 1U / 2, 0])
+    translate([6inch / 2 - 9, 1U / 2, 0])
       cylinder(d = 3.3, h = 10, center = true, $fn = 30);
-    translate([6inch / 2 + 28.5, 1U / 2, 0])
+    translate([6inch / 2 + 29, 1U / 2, 0])
       cylinder(d = 3.3, h = 10, center = true, $fn = 30);
 
     // cutout for rocker switch
@@ -126,6 +126,54 @@ module 6_120mm_fan_3u() {
     // Create circular vent pattern for 120mm fan
     translate([6inch / 2, 1.5 * 1U, -1])
       cylinder(h = 5, d = 110, $fn = 100);
+  }
+  ;
+}
+
+module 6_waveshare_5inch_dsi() {
+  length = 114;
+  breadth = 69;
+  difference() {
+    cube([6inch, 2 * 1U, 3]);
+    for(x = [7, 6inch - 7])
+      for(y = [10, 2 * 1U - 10])
+        translate([x, y, -1])
+          cylinder(h = 5, d = 4.4, $fn = 30);
+
+
+  // Mounting holes for 5-inch display
+  for(x = [6inch/2 - length/2, 6inch/2 + length/2])
+    for(y = [1U - breadth/2, 1U + breadth/2])
+      translate([x, y, -1])
+        cylinder(h = 5, d = 4.4, $fn = 30);
+  // cutout for DSI cable
+    translate([25,1U-27/2,0])cube([10,27,3]);
+  }
+}
+
+module 6_analyzer(num = 1) {
+  6inch_shrink = 6inch - 20;
+  for(i = [0:num - 1]) {
+    translate([i * (6inch_shrink / num) + (6inch_shrink / num) / 2 - 5 + 10, 1U / 2 - 22.225, 0])
+      translate([5, 0, 20])
+        rotate([-90, 0, 0])
+          box_make(halves = [BOT])
+            box_shell_base_lid([8.5, 34, 12]);
+  }
+
+  difference() {
+    difference() {
+      cube([6inch, 1U, 3]);
+      for(i = [0:num - 1]) {
+        translate([i * (6inch_shrink / num) + (6inch_shrink / num) / 2 + 10, 1U / 2, 0])
+          cube([8, 25, 7], center = true);
+      }
+    }
+    ;
+    for(x = [7, 6inch - 7])
+      for(y = [10, 1U - 10])
+        translate([x, y, -1])
+          cylinder(h = 5, d = 4.4, $fn = 30);
   }
   ;
 }
