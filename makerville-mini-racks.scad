@@ -3,7 +3,7 @@ include <jl_scad/parts.scad>
 
 
 1U = 44.45;
-6inch = 156;
+6inch = 166;
 
 module 6_blank(U = 1, text = "", text_size = 3) {
 
@@ -155,6 +155,57 @@ module 6_analyzer(num = 1) {
   6inch_shrink = 6inch - 20;
   for(i = [0:num - 1]) {
     translate([i * (6inch_shrink / num) + (6inch_shrink / num) / 2 - 5 + 10, 1U / 2 - 22.225, 0])
+      translate([5, 0, 28.5])
+        rotate([-90, 180, 0])
+      difference(){
+      box_make(halves = [BOT])
+      box_shell_base_lid([14.5, 49, 40]);
+      translate([-14/2,49/2,11]) cube([14,10,15]);
+      translate([-10/2,-49/2-10,2.5])cube([10,10,30]);
+      };
+
+  }
+
+  difference() {
+    difference() {
+      cube([6inch, 1U, 3]);
+      for(i = [0:num - 1]) {
+        translate([i * (6inch_shrink / num) + (6inch_shrink / num) / 2 + 10, 1U / 2, -1])
+          cube([10, 35, 10], center = true);
+      }
+    }
+    ;
+    for(x = [7, 6inch - 7])
+      for(y = [10, 1U - 10])
+        translate([x, y, -1])
+          cylinder(h = 5, d = 4.4, $fn = 30);
+  }
+  ;
+}
+
+
+module 6_analyzer_serial(analyzer=1,serial=1)
+{
+  num = analyzer+serial;
+  offset = 30;
+  6inch_shrink = 6inch - offset;
+
+  // Place analyzers
+  for(i = [0:analyzer-1]) {
+    translate([i * (6inch_shrink / num) + (6inch_shrink / num) / 2 - 5 + offset/2, 1U / 2 - 22.225, 0])
+      translate([5, 0, 28.5])
+        rotate([-90, 180, 0])
+      difference(){
+        box_make(halves = [BOT])
+        box_shell_base_lid([14.5, 49, 40]);
+        translate([-14/2,49/2,11]) cube([14,10,15]);
+        translate([-10/2,-49/2-10,2.5])cube([10,10,30]);
+      };
+  }
+
+  // Place serials
+  for(i = [0:serial-1]) {
+    translate([(analyzer + i) * (6inch_shrink / num) + (6inch_shrink / num) / 2 - 5 + offset/2, 1U / 2 - 22.225, 0])
       translate([5, 0, 20])
         rotate([-90, 0, 0])
           box_make(halves = [BOT])
@@ -164,13 +215,19 @@ module 6_analyzer(num = 1) {
   difference() {
     difference() {
       cube([6inch, 1U, 3]);
-      for(i = [0:num - 1]) {
-        translate([i * (6inch_shrink / num) + (6inch_shrink / num) / 2 + 10, 1U / 2, 0])
+      // Analyzer cutouts
+      for(i = [0:analyzer-1]) {
+        translate([i * (6inch_shrink / num) + (6inch_shrink / num) / 2 + offset/2, 1U / 2, -1])
+          cube([10, 35, 10], center = true);
+      }
+      // Serial cutouts
+      for(i = [0:serial-1]) {
+        translate([(analyzer + i) * (6inch_shrink / num) + (6inch_shrink / num) / 2 + offset/2, 1U / 2, 0])
           cube([8, 25, 7], center = true);
       }
     }
     ;
-    for(x = [7, 6inch - 7])
+    for(x = [10, 6inch - 10])
       for(y = [10, 1U - 10])
         translate([x, y, -1])
           cylinder(h = 5, d = 4.4, $fn = 30);
